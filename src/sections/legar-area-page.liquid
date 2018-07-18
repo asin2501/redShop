@@ -1,0 +1,33 @@
+<div class="main-container">
+    <div class="container">
+        <h1 class="page-title page-title--mb-65">{{ page.title }}</h1>
+
+        <div class="row">
+            <div class="col-md-3">
+                {% assign legal_links = section.settings.pages_links %}
+                <ul class="links-list">
+                    {% for link in linklists[legal_links].links %}
+                        <li class="links-list__item"><a href="{{ linl.url }}" class="links-list__link">{{ link.title }}</a></li>
+                    {% endfor %}
+                </ul>
+
+            </div>
+            <div class="col-md-9">
+                {{ page.description }}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Legal",
+    "settings": [
+        {
+            "type": "link_list",
+            "id": "pages_links",
+            "label": "Legal area menu"
+        }
+    ]
+  }
+{% endschema %}

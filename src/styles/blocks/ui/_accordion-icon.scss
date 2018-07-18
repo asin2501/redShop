@@ -1,0 +1,19 @@
+.accordion-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 13px;
+    height: 13px;
+    margin-left: 5px;
+    text-align: center;
+    transition: .3s all;
+    svg {
+        fill: $black;
+    }
+}
+
+.opened {
+    .accordion-icon {
+        transform: rotate(180deg);
+    }
+}

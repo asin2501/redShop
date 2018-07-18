@@ -1,0 +1,121 @@
+.product {
+
+    .page-title {
+        margin-top: 7px;
+        margin-bottom: 28px;
+    }
+}
+
+.product__media {
+    position: relative;
+    padding-left: 150px;
+    @include breakpoint(extra-small) {
+        padding-left: 0;
+    }
+}
+
+.product__title {
+    margin-bottom: 12px;
+    line-height: 1.5;
+    @include breakpoint(extra-small) {
+        padding-top: 25px;
+    }
+}
+
+.product__price {
+    margin-bottom: 46px;
+    font-size: 16px;
+    font-weight: bold;
+    color: $black;
+}
+
+.product__form {
+    margin-bottom: 28px;
+    @include breakpoint(extra-small) {
+        margin-bottom: 43px;
+    }
+}
+
+.product__option {
+    position: relative;
+    + .product__option {
+        margin-top: 15px;
+    }
+}
+
+.product__swatches {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin: 0 -3px;
+
+    .product__option-label {
+        width: 100%;
+        margin-bottom: 4px;
+        padding: 0 3px;
+    }
+}
+
+.product__option-label {
+    display: inline-block;
+    margin-bottom: 8px;
+    font-family: $book-heavy;
+    letter-spacing: 1.2px;
+    color: $black;
+}
+
+.product__option-size-link {
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: $black;
+}
+
+.product__option-label-val {
+    font-family: $book;
+}
+
+.product__add-to-cart {
+    margin-top: 8px;
+    margin-bottom: 28px;
+    @include breakpoint(extra-small) {
+        margin-top: 18px;
+    }
+}
+
+.product__icons-link {
+    display: inline-flex;
+    align-items: center;
+    color: $black;
+    letter-spacing: 1.15px;
+
+    .product__icons-link-icon {
+        margin-right: 10px;
+    }
+}
+
+.product__info {
+    margin-top: 46px;
+    line-height: 1.5;
+    @include breakpoint(extra-small) {
+        margin-top: 41px;
+    }
+}
+
+.product__info-item {
+    + .product__info-item {
+        margin-top: 13px;
+    }
+}
+
+.product__info-title {
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.product__info-content {
+    display: none;
+    letter-spacing: 1.15px;
+    line-height: 2.2;
+}

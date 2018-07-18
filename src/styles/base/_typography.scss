@@ -1,0 +1,42 @@
+//typography: base styles for fonts, p, a, standard h1, h2 ...
+
+body {
+    font-family: $book;
+    text-transform: uppercase;
+    font-size: 10px;
+    color: $gray;
+}
+
+h1  {
+    font-family: $book-heavy;
+    font-size: 20px;
+    text-transform: uppercase;
+    color: $black;
+    @include breakpoint(extra-small) {
+        font-size: 16px;
+    }
+}
+
+h2 {
+    font-family: $book-heavy;
+    font-size: 14px;
+    text-transform: uppercase;
+    color: $black;
+}
+
+h3 {
+    font-size: 10px;
+    font-family: $book-heavy;
+    color: $black;
+    text-transform: uppercase;
+    letter-spacing: 1.15px;
+}
+
+h6 {
+    font-size: 10px;
+    font-family: $book;
+    font-weight: normal;
+    letter-spacing: 1.15px;
+    color: $black;
+}
+

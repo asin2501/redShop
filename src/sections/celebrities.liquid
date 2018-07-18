@@ -1,0 +1,62 @@
+<section class="celebrities-page">
+    <div class="container">
+        <div class="row">
+            <h3 class="page-title">{{ page_title }}</h3>
+        </div>
+        <div class="row">
+            {% if section.blocks != blank %}
+            <div class="celebrities-list celebrities-list--desktop column">
+                {% for block in section.blocks %}
+                    {% if block.settings.block_name != blank %}
+                        <a href="{{ block.settings.block_name | handleize }}" class="celebrities-list__item js-celebrities-list__item">
+                            {{ block.settings.block_name }}
+                        </a>
+                    {% endif %}
+                {% endfor %}
+            </div>
+                <select name="celebrities-select" class="select celebrities-list celebrities-list--mobile js-celebrities-list--mobile" id="celebrities-select">
+                    {% for block in section.blocks %}
+                        {% if block.settings.block_name != blank %}
+                            <option class="js-celebrities-option" value="{{ block.settings.block_name | handleize }}"> {{ block.settings.block_name }} </option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            {% endif %}
+        </div>
+
+        <div class="row">
+            {% if section.blocks != blank %}
+                {% for block in section.blocks %}
+                    <div id="{{ block.settings.block_name | handleize }}" class="celebrity">
+                        <img src="{{ block.settings.block_photo | img_url: 'master' }}" alt="photo">
+                        <h4>{{ block.settings.block_name }}</h4>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+{% schema %}
+{
+    "name"     : "Celebrities",
+    "blocks": [
+        {
+            "type": "select",
+            "name": "Celebrity",
+            "settings": [
+                {
+                    "id": "block_name",
+                    "type": "text",
+                    "label": "Name"
+                },
+                {
+                    "id": "block_photo",
+                    "type": "image_picker",
+                    "label": "Photo"
+                }
+            ]
+        }
+    ]
+}
+{% endschema %}

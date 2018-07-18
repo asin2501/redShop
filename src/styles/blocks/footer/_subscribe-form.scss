@@ -1,0 +1,85 @@
+.subscribe-form {
+    @include breakpoint(extra-small) {
+        margin-top: 30px;
+    }
+
+    .mc-response {
+        margin-top: 10px;
+        font-family: $book-heavy;
+        font-size: 11px;
+        color: red;
+    }
+}
+
+.subscribe-form__inner {
+    display: flex;
+
+    @media (min-width: 992px) and (max-width: 1400px) {
+        flex-wrap: wrap;
+    }
+
+    @include breakpoint(extra-small) {
+        flex-wrap: wrap;
+    }
+}
+
+.subscribe-form__input {
+    width: 100%;
+    flex-grow: 2;
+    flex-shrink: 1;
+    padding: 11px 14px;
+    border-radius: 0;
+    box-shadow: 0;
+    border: 1px solid $dark_gray;
+    font-family: $book;
+    font-size: 13px;
+    text-transform: none;
+    color: $black;
+    -webkit-appearance: none;
+    transition: .3s all;
+
+    @include placeholder() {
+        color: $black;
+        opacity: 1;
+    }
+
+    &:focus {
+        border-color: $black;
+    }
+
+    @include breakpoint(extra-small) {
+        height: 40px;
+    }
+}
+
+.subscribe-form__button {
+    flex-grow: 1;
+    flex-shrink: 0;
+    display: inline-block;
+    padding: 0 17px;
+    border: none;
+    background-color: $black;
+    box-shadow: none;
+    color: #fff;
+    font-family: $book;
+    font-size: 10px;
+    letter-spacing: 1.15px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: .3s all;
+
+    &:hover,
+    &:focus {
+        box-shadow: inset 0 0 0 3px $black, inset 0 0 0 4px white;
+    }
+
+    @media (min-width: 992px) and (max-width: 1400px) {
+        width: 100%;
+        height: 40px;
+    }
+
+    @include breakpoint(extra-small) {
+        height: 40px;
+        width: 100%;
+    }
+}

@@ -1,0 +1,36 @@
+.filter-title {
+    position: relative;
+    z-index: 20;
+    margin-bottom: 20px;
+
+    .filter-title__button {
+        //position: absolute;
+        //right: 0;
+        order: 10;
+        height: 40px;
+        padding: 0 40px;
+        text-align: center;
+        line-height: 40px;
+        box-shadow: none;
+        font-size: 10px;
+        font-family: $book;
+        letter-spacing: 1.15px;
+        text-transform: uppercase;
+        color: $black;
+        background-color: #fff;
+        border: 1px solid $light_gray;
+        -webkit-appearance: none;
+        appearance: none;
+        cursor: pointer;
+    }
+
+    @include breakpoint(extra-small) {
+        flex-wrap: wrap;
+        margin-bottom: 40px;
+
+        .filter-title__button {
+            width: 100%;
+            margin-top: 30px;
+        }
+    }
+}

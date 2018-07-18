@@ -1,0 +1,33 @@
+<!-- /snippets/social-sharing.liquid -->
+<div class="social-sharing">
+
+    {% if settings.share_facebook %}
+        <a class="social-sharing__link" target="_blank"
+           href="//www.facebook.com/sharer.php?u={{ shop.url | append: share_permalink }}">
+            {% include 'icon-facebook' %}
+            <span class="visually-hidden">{{ 'general.social.alt_text.share_on_facebook' | t }}</span>
+        </a>
+    {% endif %}
+
+    {% if settings.share_twitter %}
+        <a class="social-sharing__link" target="_blank"
+           href="//twitter.com/share?text={{ share_title | url_param_escape }}&amp;url={{ shop.url | append: share_permalink }}">
+            {% include 'icon-twitter' %}
+            <span class="visually-hidden">{{ 'general.social.alt_text.share_on_twitter' | t }}</span>
+        </a>
+    {% endif %}
+
+    {% if settings.share_pinterest %}
+        <a class="social-sharing__link" target="_blank"
+           href="//pinterest.com/pin/create/button/?url={{ shop.url | append: share_permalink }}&amp;media={{ share_image | img_url: '1024x1024' }}&amp;description={{ share_title | url_param_escape }}">
+            {% include 'icon-pinterest-logo' %}
+            <span class="visually-hidden">{{ 'general.social.alt_text.share_on_pinterest' | t }}</span>
+        </a>
+    {% endif %}
+
+    {% if settings.share_google %}
+        <a class="social-sharing__link social-sharing__link--google" target="_blank" href="//plus.google.com/share?url={{ shop.url | append: share_permalink }}">
+            {% include 'icon-google-plus-2' %}
+        </a>
+    {% endif %}
+</div>

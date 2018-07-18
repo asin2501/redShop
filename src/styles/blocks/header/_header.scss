@@ -1,0 +1,44 @@
+.header{
+    position: fixed;
+    left:0;
+    right:0;
+    top:0;
+    background-color: red;
+    z-index: 300;
+
+    .main-container{
+        position: relative;
+    }
+}
+
+.header__logo{
+    margin-top:20px;
+    position: absolute;
+    left:50%;
+    top: 0;
+    width:234px;
+    margin-left:-117px;
+    text-align: center;
+
+    @include breakpoint(medium){
+        width:168px;
+        margin-top:8px;
+        margin-left:-84px;
+    }
+}
+
+.header__left-menu{
+    position: absolute;
+}
+
+.header__right-menu{
+    position: absolute;
+    right:30px;
+    top:42px;
+    font-size:10px;
+}
+
+.header__left-menu{
+    top:42px;
+    left:50px;
+}

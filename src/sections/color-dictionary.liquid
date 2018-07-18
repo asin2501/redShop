@@ -1,0 +1,43 @@
+<style>
+{% for block in section.blocks %}
+
+.color-{{ block.settings.color_name | handleize  }} {
+    background-color: {{ block.settings.color_hex }}!important;
+
+    {% if block.settings.color_image != blank %}
+    background-image: url('{{ block.settings.color_image | img_url: "100x" }}')!important;
+    {% endif %}
+}
+
+
+{% endfor %}
+</style>
+
+{% schema %}
+{
+    "name": "Color Dictionary",
+    "blocks": [
+    {
+        "type": "image",
+        "name": "Color",
+        "settings": [
+        {
+            "type": "text",
+            "id": "color_name",
+            "label": "Color Name:"
+        },
+        {
+            "type": "color",
+            "id": "color_hex",
+            "label": "Color"
+        },
+        {
+            "type": "image_picker",
+            "id": "color_image",
+            "label": "Color image"
+        }
+        ]
+    }
+    ]
+}
+{% endschema %}

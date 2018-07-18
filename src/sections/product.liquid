@@ -1,0 +1,339 @@
+<div class="main-container product">
+
+  <div data-section-id="{{ section.id }}" data-section-type="product" data-enable-history-state="true" itemscope itemtype="http://schema.org/Product">
+
+    {%- assign current_variant = product.selected_or_first_available_variant -%}
+    {%- assign featured_image = current_variant.featured_image | default: product.featured_image -%}
+
+    <meta itemprop="name" content="{{ product.title }}{% unless product.has_only_default_variant %} - {{ current_variant.title }}{% endunless %}">
+    <meta itemprop="url" content="{{ shop.url }}{{ current_variant.url }}">
+    <meta itemprop="brand" content="{{ product.vendor }}">
+    <meta itemprop="image" content="{{ featured_image | img_url: '600x600' }}">
+    <meta itemprop="description" content="{{ product.description | strip_html | escape }}">
+
+
+    <div class="container">
+        {% if collection %}
+            {% assign return_url = collection.url %}
+        {% else %}
+            {% assign return_url = '/collections/all' %}
+        {% endif %}
+        <div class="page-title"><a href="{{ return_url }}" class="page-title__link js-return-link">Return</a></div>
+      <div class="row">
+
+        <!-- product slider -->
+        <div class="col-md-7 col-xl-8">
+            <div class="product__media">
+                {% if product.images.size > 1 %}
+                    <div class="product-thumbnails">
+                        <div class="js-product-thumbnails">
+                            {% for image in product.images %}
+                                {% if current_variant.featured_image and forloop.index == 1 %}
+                                <div class="product-thumbnails__slide" data-thumb-color="{{  image.alt | escape | downcase }}">
+                                    <img class="product-thumbnails__image" data-url="{{ current_variant.featured_image | img_url: '1400x' }}" src="{{ current_variant.featured_image | img_url: '800x' }}" alt="{{ image.alt | escape | downcase }}">
+                                </div>
+                                {% endif %}
+                                <div class="product-thumbnails__slide" data-thumb-color="{{  image.alt | escape | downcase }}">
+                                    <img class="product-thumbnails__image" data-url="{{ image.src | img_url: '1400x' }}" src="{{ image.src | img_url: '800x' }}" alt="{{ image.alt | escape | downcase }}">
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endif %}
+
+                {% if featured_image != blank %}
+                    <div class="product-feature-image">
+                        <div class="product-feature-image__inner js-product-feature-img" style="background-image: url({{ featured_image | img_url: '1400x' }});"></div>
+                    </div>
+                {% endif %}
+            </div>
+
+        </div>
+        <!-- product slider end -->
+
+
+        <!-- product description -->
+        <div class="col-md-5 col-xl-4">
+          <h1 class="product__title">{{ product.title }}</h1>
+          <div data-price-wrapper class="product__price">
+                  <span data-product-price>
+                  {{ current_variant.price | money_without_trailing_zeros }}
+                  </span>
+
+              {% if product.compare_at_price_max > product.price %}
+                <span class="visually-hidden" data-compare-text>{{ 'products.product.regular_price' | t }}</span>
+                <s data-compare-price>
+                    {% if current_variant.compare_at_price > current_variant.price %}
+                        {{ current_variant.compare_at_price | money }}
+                    {% endif %}
+                </s>
+              {% endif %}
+          </div>
+
+          <div class="product__form" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+            <meta itemprop="priceCurrency" content="{{ shop.currency }}">
+            <meta itemprop="price" content="{{ current_variant.price | divided_by: 100.00 }}">
+            <link itemprop="availability" href="http://schema.org/{% if current_variant.available %}InStock{% else %}OutOfStock{% endif %}">
+
+            <form action="/cart/add" method="post" enctype="multipart/form-data">
+                {% unless product.has_only_default_variant %}
+                {% for option in product.options_with_values %}
+                    {% assign option_name_downcase = option.name | downcase %}
+
+                    {% if option_name_downcase == "color" %}
+                        <!-- Color swatches -->
+                        <div class="product__option product__swatches selector-wrapper js">
+                            <div class="product__option-label">{{ option.name }}: <span class="product__option-label-val js-color-label">{{ option.selected_value }}</span></div>
+                            {% for value in option.values %}
+                                <div class="swatches js-swatches {% if option.selected_value == value %}js-swatches-checked{% endif %}">
+                                    <input id="{{ value | handle }}"
+                                           type="radio" name="color"
+                                           value="{{ value | escape }}"
+                                           data-index="option{{ option.position }}"
+                                           data-single-option-selector
+                                            {% if option.selected_value == value %}checked{% endif %}
+                                    >
+
+                                    <label for="{{ value | handle }}"
+                                           data-color="{{ value | handle }}"
+                                           class="color-{{ value | handle }}" style="background-color: {{ value | handle }}">
+                                    </label>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <!-- Color swatches end -->
+                    {% endif %}
+
+                    {% if option_name_downcase != "color" %}
+                      <div class="product__option selector-wrapper js">
+                        <label for="SingleOptionSelector-{{ forloop.index0 }}" class="product__option-label">
+                            {{ option.name }}: <span class="product__option-label-val js-select-label">{{ option.selected_value }}</span>
+                        </label>
+                          {% if option_name_downcase == "size" and section.settings.sizing_popup_img %}
+                              <a href="{{ section.settings.sizing_popup_img | img_url: "master" }}" class="product__option-size-link js-popup-size">{{ section.settings.sizing_guide_text }}</a>
+                          {% endif %}
+
+                        <select
+                                class="select select--full-width"
+                                id="SingleOptionSelector-{{ forloop.index0 }}"
+                                data-single-option-selector
+                                data-index="option{{ option.position }}">
+                            {% for value in option.values %}
+                              <option
+                                      value="{{ value | escape }}"
+                                      {% if option.selected_value == value %}selected="selected"{% endif %}>
+                                  {{ value }}
+                              </option>
+                            {% endfor %}
+                        </select>
+                      </div>
+                    {% endif %}
+                {% endfor %}
+                {% endunless %}
+
+              <select name="id" class="no-js hidden" data-product-select>
+                  {% for variant in product.variants %}
+                    <option
+                            {% if variant == current_variant %}selected="selected"{% endif %}
+                            {% unless variant.available %}disabled="disabled"{% endunless %}
+                            value="{{ variant.id }}">
+                        {{ variant.title }}
+                    </option>
+                  {% endfor %}
+              </select>
+                
+                {% comment %}
+                  <label for="Quantity">{{ 'products.product.quantity' | t }}</label>
+                  <input type="number" id="Quantity" name="quantity" value="1" min="1">
+                {% endcomment %}
+
+
+
+              <button
+                      class="button button--full-width product__add-to-cart"
+                      type="submit"
+                      name="add"
+                      data-add-to-cart
+                      {% unless current_variant.available %}disabled="disabled"{% endunless %}>
+
+              <span data-add-to-cart-text>
+                {% if current_variant.available %}
+                    {{ 'products.product.add_to_cart' | t }}
+                {% else %}
+                    {{ 'products.product.sold_out' | t }}
+                {% endif %}
+              </span>
+              </button>
+              <!-- Plugin Smart Wishlist add to Wishlist -->
+              <div id="smartwishlist" data-product="{{ product.id }}" data-variant="{{ product.variants.first.id }}"></div>
+              <!-- Plugin Smart Wishlist add to Wishlist end -->
+            </form>
+          </div>
+
+          <div class="product__info">
+              <div class="product__info-item">
+                  <h3 class="product__info-title js-accordion-switcher">{{ section.settings.description_title }} <span class="accordion-icon"><img src="{{ 'select.png' | asset_img_url: "40x" }}" ></span></h3>
+                  <div class="product__info-content">
+                      {{ product.description }}
+                  </div>
+              </div>
+
+              <div class="product__info-item">
+                  <h3 class="product__info-title js-accordion-switcher">{{ section.settings.size_fit_title }} <span class="accordion-icon"><img src="{{ 'select.png' | asset_img_url: "40x" }}" ></span></h3>
+                  <div class="product__info-content">
+                      {{ section.settings.size_fit_text }}
+                  </div>
+              </div>
+
+              {% if section.settings.show_share_buttons %}
+              <div class="product__info-item">
+                  <h3 class="product__info-title js-accordion-switcher">{{ section.settings.share_title }} <span class="accordion-icon"><img src="{{ 'select.png' | asset_img_url: "40x" }}" ></span></h3>
+                  <div class="product__info-content">
+                      {% include 'social-sharing', share_title: product.title, share_permalink: product.url, share_image: product %}
+                  </div>
+              </div>
+              {% endif %}
+
+          </div>
+
+        </div>
+        <!-- product description end -->
+      </div>
+
+        <section class="related-products">
+            <h3 class="related-products__title">{{ section.settings.related_products_title }}</h3>
+
+            {% assign product_list = '' %}
+            {% for i in (1..5) %}
+                {% assign product_metafield = 'prod' | append: i %}
+                {% if product.metafields.sf_also_like[product_metafield] %}
+                    {% assign product_list = product_list | append: ',' | append: product.metafields.sf_also_like[product_metafield] %}
+                {% endif %}
+            {% endfor %}
+
+            {% assign product_list = product_list | remove_first: "," %}
+            {% assign product_handels = product_list | split:',' %}
+            {% assign length = product_handels | size %}
+
+            {% assign length = product_handels | size %}
+            {% assign rest = 5 | minus: length %}
+
+            {% if rest > 0 %}
+                {% if collection %}
+                    {% assign product_collection = collection %}
+                    {% else %}
+                    {% assign product_collection = product.collections | first %}
+                {% endif %}
+                {% for prod in product_collection.products %}
+
+                    {% if rest == 0 %}
+                        {% break %}
+                    {% endif %}
+
+                    {% unless product_list contains prod.handle %}
+                        {% unless product.handle == prod.handle %}
+                        {% if rest == 5 and forloop.index == 1 %}
+                            {% assign seraprator = '' %}
+                        {% else %}
+                            {% assign seraprator = ',' %}
+                        {% endif %}
+
+                        {% assign product_list = product_list | append: seraprator | append: prod.handle %}
+                        {% assign rest = rest | minus: 1 %}
+
+                        {% endunless %}
+                    {% endunless %}
+                {% endfor %}
+            {% endif %}
+
+            {% assign first_symbol = product_list | first %}
+            {% if first_symbol == ',' %}
+                {% assign product_list = product_list | remove_first: "," %}
+            {% endif %}
+
+            {% assign product_handels = product_list | split:',' %}
+
+            <div class="related-products__row" data-rest="{{ product_list }}">
+                {% for product_handel in product_handels %}
+                    {% if all_products[product_handel] %}
+                        <div class="related-products__item">{% include 'product-card', product: all_products[product_handel] %}</div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </section>
+    </div>
+
+
+
+
+
+    {% unless product == empty %}
+      <script type="application/json" data-product-json>
+        {{ product | json }}
+      </script>
+    {% endunless %}
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Product pages",
+    "settings": [
+        {
+            "type": "header",
+            "content": "Product information"
+        },
+        {
+            "type": "text",
+            "id": "description_title",
+            "label": "Description title",
+            "default": "Description"
+        },
+        {
+            "type": "text",
+            "id": "size_fit_title",
+            "label": "Size & fit title",
+            "default": "Size & fit information"
+        },
+        {
+            "type": "richtext",
+            "id": "size_fit_text",
+            "label": "Size & fit text",
+            "default": "<p>Size & fit information</p>"
+        },
+        {
+            "type": "checkbox",
+            "id": "show_share_buttons",
+            "label": "Show social sharing buttons",
+            "default": true
+        },
+        {
+            "type": "text",
+            "id": "share_title",
+            "label": "Share title",
+            "default": "Share"
+        },
+        {
+            "type": "image_picker",
+            "id": "sizing_popup_img",
+            "label": "Size guide image"
+        },
+        {
+            "type": "text",
+            "id": "sizing_guide_text",
+            "label": "Size guide title",
+            "default": "Size Guide"
+        },
+        {
+            "type": "header",
+            "content": "Related products"
+        },
+        {
+            "type": "text",
+            "id": "related_products_title",
+            "label": "Related products title",
+            "default": "You May also like"
+        }
+    ]
+  }
+{% endschema %}

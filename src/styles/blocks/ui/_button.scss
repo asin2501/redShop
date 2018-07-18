@@ -1,0 +1,43 @@
+.button {
+    position: relative;
+    min-width: 120px;
+    padding: 15px 20px;
+    background-color: $black;
+    font-family: $book;
+    font-size: 10px;
+    text-align: center;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 1.15px;
+    border-radius: 0;
+    border: none;
+    box-shadow: none;
+    cursor: pointer;
+    transition: .3s all;
+    -webkit-appearance: none;
+
+    &::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        box-shadow: inset 0 0 0 3px $black, inset 0 0 0 4px white;
+        transition: .3s all;
+
+    }
+
+    &:hover,
+    &:focus {
+        //box-shadow: inset 0 0 0 3px $black, inset 0 0 0 4px white;
+        &::before {
+            opacity: 1;
+        }
+    }
+
+    &.button--full-width {
+        width: 100%;
+    }
+}

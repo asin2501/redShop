@@ -1,0 +1,112 @@
+.product-thumbnails {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 52px;
+    padding: 30px 0;
+
+    .slick-arrow {
+        background-color: $light_gray;
+        transform: translateX(-50%);
+        left: 50%;
+        &::before {
+            content: "";
+            display: block;
+            width: 100%;
+            height: 100%;
+            background-image: url('icon-chevron-down.svg');
+            background-repeat: no-repeat;
+            background-position: 50% 50%;
+            background-size: 19px;
+        }
+
+        &:hover {
+            background-color: $light_gray;
+        }
+
+        &.slick-disabled {
+            display: none;
+            opacity: 0;
+            visibility: hidden;
+        }
+    }
+
+    .slick-prev {
+        top: -20px;
+        &::before {
+            transform: rotate(180deg);
+        }
+    }
+
+    .slick-next {
+        top: auto;
+        bottom: -20px;
+    }
+
+    .slick-dots {
+        bottom: -25px;
+        li {
+            width: auto;
+            height: auto;
+            margin: 0 4px;
+            button {
+                width: 9px;
+                height: 9px;
+                padding: 0;
+                border-radius: 50%;
+                background-color: #fff;
+                border: 1px solid $black;
+                &::before {
+                    display: none;
+                }
+            }
+
+            &.slick-active {
+                button {
+                    background-color: $black;
+                }
+            }
+        }
+    }
+
+
+
+
+
+
+    //
+
+    .product-thumbnails__slide {
+        margin: 2px 0;
+    }
+
+    .product-thumbnails__slide img {
+        border: 1px solid $light_gray;
+        opacity: .5;
+        cursor: pointer;
+        transition: .3s all;
+    }
+
+    .product-thumbnails__slide.slick-current img,
+    .product-thumbnails__slide.active img {
+        opacity: 1;
+        border-color: $black;
+    }
+
+    @include breakpoint(extra-small) {
+        position: static;
+        width: 100%;
+        padding: 0;
+
+        .product-thumbnails__slide {
+            margin: 0;
+        }
+
+        .product-thumbnails__slide img {
+            opacity: 1;
+            margin: 0 auto;
+            border: none;
+            cursor: default;
+        }
+    }
+}

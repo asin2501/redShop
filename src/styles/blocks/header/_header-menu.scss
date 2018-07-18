@@ -1,0 +1,84 @@
+.header-menu {
+    max-width: 130px;
+
+    &.header-menu--desktop {
+        height: calc(100vh - 80px);
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    @include breakpoint(medium) {
+        &.header-menu--desktop {
+            display: none;
+        }
+    }
+
+    //Smart wishlist counter
+    .topbadge {
+        color: $black !important;
+        background-color: transparent !important;
+        margin-left: 3px !important;
+        font-family: $book;
+        font-size: 10px !important;
+        font-weight: normal;
+        padding: 0 !important;
+        vertical-align: top;
+        &::before {
+            content: "(";
+        }
+        &::after {
+            content: ")";
+        }
+    }
+}
+
+.header-menu--right {
+    text-align: right;
+}
+
+.header-menu__link {
+    padding-top: 9px;
+    padding-bottom: 9px;
+    position: relative;
+    //padding-right:18px;
+    font-size: 10px;
+    letter-spacing: 0.5px;
+}
+
+.header-menu__item--has-children > .header-menu__link {
+    padding-right: 18px;
+}
+
+.header-menu--submenu {
+    padding-left: 15px;
+    display: none;
+}
+
+.header-menu__arrow {
+    position: absolute;
+    right: 3px;
+    top: 50%;
+    margin-top: -3px;
+    width: 6px;
+    height: 6px;
+
+    transform: rotateZ(-45deg);
+    border: 1px solid $black;
+    border-top: none;
+    border-right: none;
+    transition: transform 300ms;
+
+    .header-menu__link--arrow-revert & {
+        transform: rotateZ(-225deg);
+    }
+}
+
+.header-menu--mobile {
+    .header-menu__arrow {
+        transform: rotateZ(-135deg);
+    }
+}
+
+.menu-number {
+    padding-left: 5px;
+}

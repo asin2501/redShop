@@ -1,0 +1,94 @@
+@charset "UTF-8";
+/*============================================================================
+  [replace with theme name] | Built with Slate
+    - You cannot use native CSS/Sass @imports in this file without a build script
+==============================================================================*/
+
+/*================ Mixins================*/
+@import url('mixins/_mixins.scss');
+
+
+/*================ Base ================*/
+@import url('base/_base.scss');
+
+
+/*================ Libs ================*/
+@import url('libs/_magnific-popup.scss');
+@import url('libs/_slick.scss');
+@import url('libs/_slick-theme.scss');
+@import url('libs/_bc-sf-filter.scss');
+
+
+
+
+/*================ Blocks ================*/
+//@import url('blocks/_responsive-tables.scss');
+
+@import url('blocks/ui/_button.scss');
+@import url('blocks/ui/_page-title.scss');
+@import url('blocks/ui/_accordion-icon.scss');
+@import url('blocks/ui/_select.scss');
+@import url('blocks/ui/_wish-list-button.scss');
+@import url('blocks/ui/_input.scss');
+
+@import url('blocks/header/_header.scss');
+@import url('blocks/header/_header-menu.scss');
+@import url('blocks/header/_mobile-btn.scss');
+@import url('blocks/header/_mobile-cart.scss');
+@import url('blocks/header/_mobile-menu.scss');
+@import url('blocks/header/_mobile-sub-menu.scss');
+
+@import url('blocks/footer/_footer.scss');
+@import url('blocks/footer/_subscribe-form.scss');
+
+@import url('blocks/common/_links-list.scss');
+@import url('blocks/common/_tab.scss');
+@import url('blocks/common/_product-card.scss');
+
+@import url('blocks/contacts/_contacts-page.scss');
+
+//Home page
+@import url('blocks/home/_home-banner.scss');
+@import url('blocks/home/_home-text.scss');
+
+//FAQ page
+@import url('blocks/faq/_faq.scss');
+@import url('blocks/faq/_faq-page.scss');
+
+//Text page
+@import url('blocks/text-page/_text-page.scss');
+
+//Collection(shop) page
+@import url('blocks/collection/_filter-title.scss');
+@import url('blocks/collection/_filter-window.scss');
+@import url('blocks/collection/_collection-row.scss');
+
+
+//Product page
+@import url('blocks/product/_product.scss');
+@import url('blocks/product/_social-sharing.scss');
+@import url('blocks/product/_product-thumbnails.scss');
+@import url('blocks/product/_product-feature-image.scss');
+@import url('blocks/product/_related-products.scss');
+@import url('blocks/product/_swatches.scss');
+
+//Celebrities page
+@import url('blocks/celebrities/_celebrities-page.scss');
+
+
+// Cart page
+@import url('blocks/cart/_cart-page.scss');
+@import url('blocks/cart/_cart-item.scss');
+
+@import url('blocks/charity/_charity-page.scss');
+@import url('blocks/charity/_charity-item.scss');
+
+@import url('blocks/events/_events-page.scss');
+@import url('blocks/events/_event-item.scss');
+
+@import url('blocks/search/_search-page.scss');
+
+@import url('blocks/common/_error-page.scss');
+
+//Account
+@import url('blocks/account/_login.scss');

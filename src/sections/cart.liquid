@@ -1,0 +1,174 @@
+<div class="cart-page">
+
+    {% if cart.item_count > 0 %}
+        <div class="container">
+            <h1 class="page-title">{{ 'cart.general.title' | t }} ({{ cart.item_count }})</h1>
+
+            <form action="/cart" method="post" novalidate>
+                <div class="row">
+                    <div class="col-lg-7">
+
+                        {% for item in cart.items %}
+                            <div class="cart-item">
+                                <div class="cart-item__image">
+                                    {% if item.image != blank %}
+                                        <a href="{{ item.url | within: collections.all }}">
+                                            {{ item | img_url: '240x240' | img_tag: item.title }}
+                                        </a>
+                                    {% endif %}
+
+                                </div>
+                                <div class="cart-item-content">
+                                    <div class="cart-item-head">
+                                        <a href="{{ item.url }}">{{ item.product.title }}</a>
+                                        <span class="cart-item__price">
+                                            {% if item.original_line_price != item.line_price %}
+                                                <span class="visually-hidden">{{ 'cart.label.discounted_price' | t }}</span>
+
+                                                {{ item.price  | money_without_trailing_zeros }}
+                                                <span class="visually-hidden">{{ 'cart.label.original_price' | t }}</span>
+                                                <s>{{ item.original_price | money_without_trailing_zeros }}</s>
+                                            {% else %}
+                                                {{ item.line_price  | money_without_trailing_zeros }}
+                                            {% endif %}
+                                        </span>
+                                    </div>
+                                    <div class="cart-item-body">
+                                        <div>
+                                            <div class="cart-item-group">
+                                        <span class="cart-item-group__title">
+                                            Size:
+                                        </span>
+                                                <span>
+                                            {% if item.variant.option2 != blank %}
+                                                {{ item.variant.option2 }}
+                                            {% endif %}
+                                        </span>
+                                            </div>
+                                            <div class="cart-item-group">
+                                        <span class="cart-item-group__title">
+                                            Color:
+                                        </span>
+                                                <span>
+                                            {% if item.variant.option1 != blank %}
+                                                {{ item.variant.option1 }}
+                                            {% endif %}
+                                        </span>
+                                            </div>
+                                            <div class="cart-item-group">
+                                        <span class="cart-item-group__title">
+                                            Quantity:
+                                        </span>
+                                                <p class="js-qty">
+                                                    <span type="button" class="qty__minus js-minus">&ndash;</span>
+                                                    <input type="number"
+                                                           name="updates[]"
+                                                           min="0"
+                                                           max="99"
+                                                           id="updates_{{ item.key }}"
+                                                           value="{{ item.quantity }}"
+                                                           class="qty__input input js-inp js-digin-input"/>
+
+                                                    <span type="button" class="qty__plus js-plus">+</span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <a class="cart-item__remove-btn" href="/cart/change?line={{ forloop.index }}&amp;quantity=0">
+                                                {{ 'cart.general.remove' | t }}
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                    <div class="col-lg-4 offset-lg-1">
+
+                        <div class="cart-checkout">
+                            <div class="cart-checkout__item">
+                                <div class="cart-page__update-wrapper">
+                                    <input type="submit" class="update-btn" name="update" value="Update">
+                                    <div class="dots-left">{{ 'cart.general.subtotal' | t }}</div>
+                                </div>
+                                <div>
+                                    <p class="total-price">{{ cart.total_price  | money_without_trailing_zeros}}</p>
+                                </div>
+                            </div>
+                            <p class="cart-checkout__item">{{ 'cart.general.shipping_at_checkout' | t }}</p>
+                            {% if cart.total_discounts > 0 %}
+                                <p>{{ 'cart.general.savings' | t }} {{ cart.total_discounts  | money_without_trailing_zeros }}</p>
+                            {% endif %}
+
+                            <input type="submit" name="checkout" class="btn button button--cart" value="{{ 'cart.general.proceed' | t }}">
+                        </div>
+
+                        <div class="cart-page__faq js-tab">
+                            {% if section.blocks != blank %}
+                                {% for block in section.blocks %}
+                                    {% if block.settings.cart_info_title != blank and block.settings.cart_info_description != blank %}
+                                        <div class="faq__item">
+                                            <h3 class="faq__title accordion-title js-accordion-switcher">{{ block.settings.cart_info_title }}<span class="accordion-icon"><img src="{{ 'select.png' | asset_img_url: "40x" }}" ></span></h3>
+                                            <div class="faq__content accordion-body">{{ block.settings.cart_info_description }}</div>
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                        <div>
+                            <a class="cart-page__back-btn" href="/collections/all"><span class="cart-page-back-icon"><img src="{{ 'select.png' | asset_img_url: "40x" }}" ></span> Continue shopping</a>
+                        </div>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    {% else %}
+        <div class="container">
+            <h1>{{ 'cart.general.title' | t }}</h1>
+
+            {% comment %}
+            Cart empty state
+            {% endcomment %}
+            <div class="supports-cookies">
+                <p>{{ 'cart.general.empty' | t }}</p>
+                <p>{{ 'cart.general.continue_browsing_html' | t }}</p>
+            </div>
+
+            {% comment %}
+            Cart no cookies state
+            ---------------------
+            Browser cookies are required to use the cart. If cookies aren't enabled in the
+            browser a message is displayed prompting the user to enable them.
+            {% endcomment %}
+            <div class="supports-no-cookies">
+                <p>{{ 'cart.general.cookies_required' | t }}</p>
+            </div>
+        </div>
+    {% endif %}
+</div>
+
+{% schema %}
+{
+    "name" : "Cart information",
+    "blocks" : [
+        {
+            "type" : "select",
+            "name" : "Cart info",
+            "settings" : [
+                {
+                    "type" : "text",
+                    "id" : "cart_info_title",
+                    "label": "Title"
+                },
+                {
+                    "type": "richtext",
+                    "id" : "cart_info_description",
+                    "label" : "Text"
+                }
+            ]
+        }
+    ]
+}
+{% endschema %}

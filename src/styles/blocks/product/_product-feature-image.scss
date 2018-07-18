@@ -1,0 +1,13 @@
+.product-feature-image {
+    max-width: 470px;
+    @include breakpoint(extra-small) {
+        display: none;
+    }
+}
+
+.product-feature-image__inner {
+    padding-top: 150%;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: contain;
+}

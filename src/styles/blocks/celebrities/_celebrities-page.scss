@@ -1,0 +1,151 @@
+.celebrities-page {
+  padding-top: 135px;
+
+  .container {
+	@media (max-width: 1550px) {
+	  max-width: 860px;
+	}
+  }
+
+  .page-title {
+	width: 100%;
+	margin-left: 15px;
+	margin-bottom: 44px;
+	font-size: 20px;
+	font-family: $book-heavy;
+	color: $black;
+  }
+
+  .column {
+	-ms-display: grid;
+	-ms-grid-gap: 10px 56px;
+	-ms-grid-template-columns: repeat(5, 1fr);
+	-ms-grid-template-rows: repeat(7, auto);
+	-ms-grid-auto-flow: column;
+
+	display: grid;
+	grid-gap: 10px 56px;
+	grid-template-columns: repeat(5, 1fr);
+	grid-template-rows: repeat(7, auto);
+	grid-auto-flow: column;
+
+	margin-right: 15px;
+	margin-bottom: 57px;
+	margin-left: 15px;
+
+	a {
+	  display: block;
+	  font-family: $book-heavy;
+	  letter-spacing: 1px;
+	  line-height: 1.5;
+	}
+  }
+
+  .celebrities-list--desktop {
+
+	@include breakpoint(medium) {
+	  display: none;
+	}
+  }
+
+  .celebrities-list--mobile {
+	display: none;
+	margin: 0 auto;
+	margin-bottom: 60px;
+
+	@include breakpoint(medium) {
+	  display: block;
+	}
+  }
+
+  .celebrities-list__item {
+	cursor: pointer;
+  }
+
+  .celebrity {
+	cursor: pointer;
+
+	img {
+	  width: 170px;
+	  height: 255px;
+	  margin-bottom: 7px;
+	  object-fit: cover;
+	  filter: grayscale(100%);
+	}
+
+	&:hover {
+
+	  img {
+		filter: grayscale(0);
+	  }
+	}
+
+	h4 {
+	  margin-bottom: 45px;
+	  letter-spacing: 1.3px;
+	  color: $black;
+	}
+
+	&.is-select {
+
+	  img {
+		filter: grayscale(0);
+	  }
+	}
+  }
+}
+
+.celebrity {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 16.666667%;
+  flex: 0 0 16.666667%;
+  max-width: 16.666667%;
+
+  position: relative;
+  width: 100%;
+  min-height: 1px;
+  padding-right: 15px;
+  padding-left: 15px;
+
+  @media (max-width: 1550px) {
+	-webkit-box-flex: 0;
+	-ms-flex: 0 0 25%;
+	flex: 0 0 25%;
+	max-width: 25%;
+  }
+
+  @include breakpoint(medium) {
+
+  }
+
+  @include breakpoint(extra-small) {
+	-webkit-box-flex: 0;
+	-ms-flex: 0 0 33.333%;
+	flex: 0 0 33.333%;
+	max-width: 33.333%;
+  }
+
+  @media (max-width: 550px) {
+	-webkit-box-flex: 0;
+	-ms-flex: 0 0 50%;
+	flex: 0 0 50%;
+	max-width: 50%;
+
+	img {
+	  width: 100% !important;
+	}
+  }
+
+  @media (max-width: 380px) {
+	-webkit-box-flex: 0;
+	-ms-flex: 0 0 auto;
+	flex: 0 0 auto;
+	max-width: none;
+	margin: 0 auto;
+	width: auto;
+
+	img {
+	  width: 170px !important;
+	}
+  }
+}

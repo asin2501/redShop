@@ -1,0 +1,41 @@
+{% if section.settings.banner_img %}
+    {% assign banner_url = section.settings.banner_img | img_url: 'master' %}
+{% else %}
+    {% assign banner_url = 'home-banner.jpg' | asset_img_url: 'master' %}
+{% endif %}
+
+<div class="home-banner" style="background-image: url({{ banner_url }});"></div>
+
+<style>
+    {% if section.settings.banner_img_mobile %}
+        @media (max-width: 575px) {
+            .home-banner {
+                background-image: url({{ section.settings.banner_img_mobile | img_url: "900x" }}) !important;
+            }
+        }
+    {% endif %}
+</style>
+
+{% schema %}
+  {
+    "name": "Home banner",
+    "settings": [
+        {
+            "type": "image_picker",
+            "id": "banner_img",
+            "label": "Banner image"
+        },
+        {
+            "type": "image_picker",
+            "id": "banner_img_mobile",
+            "label": "Banner image mobile"
+        }
+    ],
+    "presets": [
+      {
+        "name": "Home banner",
+        "category": "Banner"
+      }
+    ]
+  }
+{% endschema %}

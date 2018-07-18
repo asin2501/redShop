@@ -1,0 +1,185 @@
+.filter-window {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 370px;
+    border: 1px solid $black;
+    background-color: rgba(#fff, 0.9);
+    box-shadow: 0px 5px 10px 0px rgba(16, 16, 16, 0.1);
+    position: absolute;
+
+    @include breakpoint(extra-small) {
+        left: 0;
+        width: 100%;
+        top: 100%;
+        transform: translateY(-40px);
+    }
+}
+
+.filter-window__title {
+    height: 40px;
+    line-height: 40px;
+    font-size: 10px;
+    font-family: $book;
+    font-weight: normal;
+    letter-spacing: 1.15px;
+    text-align: center;
+    text-transform: uppercase;
+    border-bottom: 1px solid $light_gray;
+    cursor: pointer;
+
+    @include breakpoint(extra-small) {
+        background-image: url(icon-close.svg);
+        background-size: 20px;
+        background-repeat: no-repeat;
+        background-position: right 15px top 50%;
+    }
+}
+
+.filter-window__body {
+    padding: 35px 47px;
+    padding-bottom: 30px;
+    font-family: $book;
+    font-size: 10px;
+    font-weight: normal;
+}
+
+
+
+//Styles for the Filter Plugin
+.filter-window {
+    #bc-sf-filter-tree {
+        width: auto;
+        float: none;
+    }
+
+    .bc-sf-filter-option-block .bc-sf-filter-block-title {
+        font-family: $book-heavy;
+        font-size: 14px;
+        line-height: 1;
+    }
+
+    #bc-sf-filter-options-wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .bc-sf-filter-option-block {
+        padding: 0;
+        padding-right: 15px;
+        border-bottom: none;
+        letter-spacing: 1.15px;
+    }
+
+    .bc-sf-filter-option-block .bc-sf-filter-block-title {
+        .bc-sf-filter-clear {
+            display: none;
+        }
+    }
+
+    .bc-sf-filter-option-block .bc-sf-filter-block-title h3 {
+        letter-spacing: 2px;
+
+        span:before {
+           // display: none; //remove arrow from title
+            border: none;
+            width: 18px;
+            height: 18px;
+            margin-bottom: 0;
+            background-image: url(icon-chevron-down.svg);
+            background-size: contain;
+            background-position: 50% 50%;
+            vertical-align: middle;
+            transform: rotate(180deg);
+            transition: .3s all;
+        }
+
+        span.up:before {
+            transform: rotate(0deg);
+        }
+    }
+
+    .bc-sf-filter-option-block .bc-sf-filter-block-content {
+        margin-top: 25px;
+    }
+
+    .bc-sf-filter-option-block .bc-sf-filter-block-content ul li {
+        margin-bottom: 13px;
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    .bc-sf-filter-option-block .bc-sf-filter-block-content ul li input[type=checkbox] + a {
+        line-height: 17px;
+    }
+
+    //checkbox
+    .bc-sf-filter-option-block .bc-sf-filter-block-content ul li input[type=checkbox] + a > span:first-child {
+        width: 10px;
+        height: 10px;
+        box-shadow: 0 0 0 1px rgb(0, 0, 0);
+    }
+
+    //checkbox - checked
+    .bc-sf-filter-option-block .bc-sf-filter-block-content ul li input[type=checkbox] + a.selected > span:first-child {
+        background-color: $black;
+        &::after {
+            display: none;
+        }
+    }
+
+    .bc-sf-filter-selection-wrapper .bc-sf-filter-selected-items .selected-item {
+        padding: 5px 0;
+        > a {
+            line-height: 1.5;
+        }
+    }
+
+    .bc-sf-filter-selection-wrapper .bc-sf-filter-selected-items .selected-item .bc-sf-filter-clear {
+        margin-top: 0;
+    }
+
+    //block when some filter was apply
+    .bc-sf-filter-selection-wrapper {
+        margin: 0;
+        padding: 0;
+        border: 0;
+
+        .bc-sf-filter-block-title h3 {
+            display: none;
+        }
+
+        .bc-sf-filter-selected-items {
+            display: none;
+        }
+    }
+
+    //clear all link
+    .bc-sf-filter-clear-all {
+        position: absolute;
+        bottom: 9px;
+        left: 50%;
+        font-size: 10px;
+        line-height: 1.3;
+        transform: translateX(-50%);
+    }
+
+    @include breakpoint(extra-small) {
+        #bc-sf-filter-tree {
+            display: block;
+        }
+
+        #bc-sf-filter-tree:not(.bc-sf-filter-tree-mobile-open) {
+            display: block;
+        }
+    }
+}
+
+@include breakpoint(extra-small){
+    #bc-sf-filter-tree-mobile {
+        display: none!important;
+    }
+}

@@ -1,0 +1,37 @@
+.tab-container {
+    position: relative;
+    overflow: hidden;
+}
+
+.tab {
+    position: absolute;
+    left: 15px;
+    top: 0;
+    visibility: hidden;
+    opacity: 0;
+    transform: translateX(40px);
+    transition-property: all;
+    transition-duration: .5s;
+    transition-delay: 0s;
+
+    &.active {
+        position: static;
+        top: 0;
+        left: 15px;
+        visibility: visible;
+        opacity: 1;
+        transform: translateX(0);
+        transition-delay: .5s;
+    }
+
+    ul {
+        list-style-type: disc;
+        padding-left: 13px;
+
+        + * {
+            margin-top: 25px;
+        }
+
+        // •
+    }
+}

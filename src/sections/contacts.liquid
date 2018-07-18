@@ -1,0 +1,178 @@
+<section class="contacts-page">
+
+    <div class="container contacts-heading-wrapper">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="contacts-heading">
+                    {% if section.settings.title != blank %}
+                        <h3 class="page-title-unline">{{ section.settings.title }}</h3>
+                    {% endif %}
+                    {% if section.settings.description != blank %}
+                        <div class="contacts-description">{{ section.settings.description }}</div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="contacts-info-group">
+
+                    {% if section.settings.phone != blank %}
+                        <div class="contacts-info-group__item">
+                            <span>Phone: </span>
+                            <a href="tel:{{ section.settings.phone | replace: '-', '' | replace: ' ', ''}}">{{ section.settings.phone }}</a>
+                        </div>
+                    {% endif %}
+
+                    {% if section.settings.email_info != blank %}
+                        <div class="contacts-info-group__item">
+                            <span>Email: </span>
+                            <a href="mailto: {{ section.settings.email_info }}">{{ section.settings.email_info }}</a>
+                        </div>
+                    {% endif %}
+
+                    {% if section.settings.email_sales != blank %}
+                        <div class="contacts-info-group__item">
+                            <span>Sales: </span>
+                            <a href="mailto: {{ section.settings.email_sales }}">{{ section.settings.email_sales }}</a>
+                        </div>
+                    {% endif %}
+
+                    {% if section.settings.email_eshop != blank %}
+                        <div class="contacts-info-group__item">
+                            <span>Eshop: </span>
+                            <a href="mailto: {{ section.settings.email_eshop }}">{{ section.settings.email_eshop }}</a>
+                        </div>
+                    {% endif %}
+
+                    {% if section.settings.email_press != blank %}
+                    <div class="contacts-info-group__item">
+                        <span>Press: </span>
+                        <a href="mailto: {{ section.settings.email_press }}">{{ section.settings.email_press }}</a>
+                    </div>
+                    {% endif %}
+                </div>
+                {% if section.blocks != blank %}
+                <div class="contacts-links-group">
+                    {% for block in section.blocks %}
+                        <div class="contacts-links-group__item">
+                            <a href="{{ block.settings.block_url }}">{{ block.settings.block_title }} {% include 'icon-chevron-down' %}</a>
+                        </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+            <div class="col-md-6 contacts-form-wrapper">
+
+                {% form 'contact' %}
+
+                    {% if form.posted_successfully? %}
+                        <p class="form-success">
+                            {{ 'contact.form.post_success' | t }}
+                        </p>
+                    {% endif %}
+
+                    {{ form.errors | default_errors }}
+
+                    <label for="ContactFormName">{{ 'contact.form.name' | t }}</label>
+                    <input type="text"
+                           name="contact[name]"
+                           id="ContactFormName"
+                           required
+                           value="{% if form[name] %}{{ form[name] }}{% elsif customer %}{{ customer.name }}{% endif %}">
+
+                    <label for="ContactFormEmail">{{ 'contact.form.email' | t }}</label>
+                    <input type="email"
+                           name="contact[email]"
+                           id="ContactFormEmail"
+                           value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"
+                           spellcheck="false"
+                           required
+                           autocomplete="off"
+                           autocapitalize="off">
+
+                    <label for="ContactFormMessage">{{ 'contact.form.message' | t }}</label>
+                    <textarea rows="7"
+                              name="contact[body]"
+                              required
+                              id="ContactFormMessage">
+                    {% if form.body %}
+                        {{ form.body }}
+                    {% endif %}
+                  </textarea>
+                    <input type="submit" class="btn button" value="{{ 'contact.form.send' | t }}">
+
+                {% endform %}
+            </div>
+        </div>
+    </div>
+</section>
+
+{% schema %}
+{
+    "name"     : "Contacts",
+    "settings" : [
+        {
+            "type": "header",
+            "content": "Page contacts"
+        },
+        {
+            "id": "title",
+            "type": "text",
+            "label": "Page title"
+        },
+        {
+            "id": "description",
+            "type": "richtext",
+            "label": "Page description"
+        },
+        {
+            "id": "phone",
+            "type": "text",
+            "label": "Phone number"
+        },
+        {
+            "id": "email_info",
+            "type": "text",
+            "label": "Info email address"
+        },
+        {
+            "id": "email_sales",
+            "type": "text",
+            "label": "Sales email address"
+        },
+        {
+            "id": "email_eshop",
+            "type": "text",
+            "label": "Eshop email address"
+        },
+        {
+            "id": "email_press",
+            "type": "text",
+            "label": "Press email address"
+        }
+    ],
+    "blocks": [
+        {
+            "type": "select",
+            "name": "Link item",
+            "limit": 4,
+            "settings": [
+                {
+                    "id": "block_title",
+                    "type": "text",
+                    "label": "Link text"
+                },
+                {
+                    "id": "block_url",
+                    "type": "url",
+                    "label": "Link url"
+                }
+            ]
+        }
+    ]
+}
+{% endschema %}

@@ -1,0 +1,138 @@
+.search-page {
+  padding-top: 8px;
+
+  .container {
+	@media (max-width: 1550px) {
+	  max-width: 860px;
+	}
+
+	@media (max-width: 1199px) {
+	  max-width: 960px;
+	}
+  }
+
+  .page-title {
+	margin-bottom: 48px;
+	font-family: $book-heavy;
+	font-size: 20px;
+  }
+
+  .bc-sf-search-container {
+	margin-bottom: 30px;
+  }
+
+  .bc-sf-search-form {
+
+	.bc-sf-search-box {
+	  border: 1px solid $black;
+	}
+  }
+
+  .bc-sf-search-btn {
+	background-color:transparent;
+  }
+
+  .bc-sf-search-form {
+	max-width: 100%;
+  }
+
+  .bc-sf-filter-product-item {
+	flex: 0 0 20%;
+	max-width: 20%;
+	margin-bottom: 30px;
+
+	@media (max-width: 800px) {
+	  flex: 0 0 25%;
+	  max-width: 25%;
+	}
+
+	@media (max-width: 650px) {
+	  flex: 0 0 33.33%;
+	  max-width: 33.33%;
+	}
+
+	@media (max-width: 480px) {
+	  flex: 0 0 50%;
+	  max-width: 50%;
+	}
+  }
+
+  input[type=text]::-ms-clear {  display: none; width : 0; height: 0; }
+  input[type=text]::-ms-reveal {  display: none; width : 0; height: 0; }
+  input[type="search"]::-webkit-search-decoration,
+  input[type="search"]::-webkit-search-cancel-button,
+  input[type="search"]::-webkit-search-results-button,
+  input[type="search"]::-webkit-search-results-decoration { display: none; }
+
+  em {
+	padding-right: 15px;
+	padding-left: 15px;
+  }
+
+  .search-page-results {
+	width: 100% !important;
+	flex: 0 0 100% !important;
+	max-width: 100%;
+  }
+
+  .search-page-results__count {
+	margin-bottom: 30px;
+
+	span {
+	  font-family: $book-heavy;
+	}
+
+	&.is-empty {
+	  display: none;
+	}
+  }
+
+  .bc-sf-filter-load-more-button {
+	position: relative;
+	min-width: 120px;
+	padding: 15px 20px !important;
+	background-color: $black !important;
+	font-family: $book;
+	font-size: 10px;
+	text-align: center;
+	color: #fff !important;
+	text-transform: uppercase;
+	letter-spacing: 1.15px;
+	border-radius: 0;
+	border: none !important;
+	box-shadow: none;
+	cursor: pointer;
+	transition: .3s all;
+	line-height: 1 !important;
+	-webkit-appearance: none;
+
+	&::before {
+	  content: "";
+	  position: absolute;
+	  left: 0;
+	  top: 0;
+	  width: 100%;
+	  height: 100%;
+	  opacity: 0;
+	  box-shadow: inset 0 0 0 3px $black, inset 0 0 0 4px white;
+	  transition: .3s all;
+
+	}
+
+	&:hover,
+	&:focus {
+	  //box-shadow: inset 0 0 0 3px $black, inset 0 0 0 4px white;
+	  &::before {
+		opacity: 1;
+	  }
+	}
+
+	&.button--full-width {
+	  width: 100%;
+	}
+  }
+
+  #bc-sf-filter-load-more-button-container {
+	margin-top: 15px;
+  }
+}

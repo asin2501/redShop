@@ -1,0 +1,81 @@
+<div class="main-container">
+	<div class="container">
+		<h1 class="page-title page-title--mb-65">{{ page.title }}</h1>
+
+		<div class="row">
+            {% assign transformed_string = section.settings.titles_categories | downcase | strip | replace: ", ", "," %}
+            {% assign categories_array = transformed_string | split: "," %}
+
+			<div class="col-md-3 faq-menu">
+                <ul class="links-list">
+                    {% for category in categories_array %}
+                        <li class="links-list__item">
+                            <a href="#{{ category | handle }}"
+                               class="js-tab-link links-list__link {% if forloop.index == 1 %}active{% endif %}">{{ category }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+			<div class="col-md-9 relative faq-container">
+                {% for category in categories_array %}
+                    {% assign category_handle = category | handle %}
+                    <div id="{{ category | handle }}" class="faq js-tab {% if forloop.index == 1 %}active{% endif %}">
+                        {% for block in section.blocks %}
+                            {% assign block_category_handle = block.settings.answer_category | handle  %}
+                            {% if block_category_handle == category_handle  %}
+                                <div class="faq__item">
+                                    <h3 class="faq__title js-accordion-switcher">{{ block.settings.answer_title }} <span class="accordion-icon"><img src="{{ 'select.png' | asset_img_url: "40x" }}" ></span></h3>
+                                    <div class="faq__content">
+                                        {{ block.settings.answer_text }}
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+			</div>
+		</div>
+	</div>
+</div>
+
+{% schema %}
+{
+	"name": "Faq page",
+    "class": "faq-page",
+	"settings": [
+		{
+			"type": "textarea",
+			"id": "titles_categories",
+			"label": "Titles categories",
+            "info": "Use coma separator (',') to add a new category"
+		}
+	],	
+	"blocks": [
+		{
+			"type": "answer",
+			"name": "Answer block",
+			"settings": [
+                {
+                    "type": "text",
+                    "id": "answer_category",
+                    "label": "Answer category",
+                    "info": "Add one title category from categories lists"
+                },
+				{
+					"type": "text",
+					"id": "answer_title",
+					"label": "Question title"
+				},
+				{
+					"type": "html",
+					"id": "answer_text",
+					"label": "Answer text",
+					"info": "Use <ul> tag for list. <p> tag for paragraph. <strong> tag for subtitles"
+				}
+			]
+		}
+	]
+	
+}
+{% endschema %}

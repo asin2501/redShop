@@ -1,0 +1,61 @@
+<section class="events-page">
+    <div class="container">
+        <div class="container events-page__block">
+            <h2 class="events-page__title">Upcoming events</h2>
+            <div class="row">
+                {% for article in blogs.upcoming-events.articles  %}
+                    {% assign event_data = article.metafields.sf_post_group.post_date %}
+                    {% assign event_collection = article.metafields.sf_post_group.post_collection %}
+                    {% assign event_link = article.metafields.sf_post_group.post_link %}
+
+                    <div class="col-md-12 col-lg-6">
+                        <article class="event-item event-item--upcoming ">
+                            <div class="event-item__head">
+                              {{ event_data | date: "%B %Y"}} <span>/</span> {{ event_collection }}
+                            </div>
+                            <h3> {{ article.title }} </h3>
+                            <p class="event-item__description"> {{ article.content }} </p>
+                            {% if event_link != blank %}
+                                <a class="button" target="_blank" href="{{ event_link }}">More</a>
+                            {% endif %}
+                        </article>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <script>
+            var blogArticles = {{ blogs.past-events.articles | json }} ;
+            var metafields = [
+                {% for article in blogs.past-events.articles %}
+                    {{ article.metafields.sf_post_group | json }}{%- if forloop.last != true -%},{%- endif -%}
+                {% endfor %}
+			];
+            var copy = [];
+            for (var i = 0; i < blogArticles.length; i++) {
+				copy.push(Object.assign(blogArticles[i], metafields[i]));
+            }
+            blogArticles = copy;
+        </script>
+
+
+        <div id="pastEventsList" class="container events-page__block">
+            <h2 class="events-page__title">Past events</h2>
+            <transition-group class="row js-past-events">
+                <div v-for="(article, key) in articles" v-if="(key) < showed" :key="article.id" class="col-md-12 col-lg-6 js-event-item">
+                    <article class="event-item event-item--past">
+                        <div class="event-item__head">
+                            {% raw %} {{ article.post_date_right }} {% endraw %} <span>/</span> {% raw %}{{ article.post_collection }}{% endraw %}
+                        </div>
+                        <h3> {% raw %} {{ article.title }} {% endraw %} </h3>
+                        <p class="event-item__description"> {% raw %} {{ article.body_html }} {% endraw %}</p>
+                        <a v-if="article.post_link != null" class="button-arrow" target="_blank" :href="article.post_link">-></a>
+                    </article>
+                </div>
+            </transition-group>
+            <div v-if="articles.length > showed" class="row">
+                <button  @click="showMore" class="button load-more">More</button>
+            </div>
+        </div>
+    </div>
+</section>

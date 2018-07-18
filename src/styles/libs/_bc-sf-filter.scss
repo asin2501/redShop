@@ -1,0 +1,32 @@
+#bc-sf-filter-load-more {
+    padding: 0 !important;
+}
+
+.collection {
+    #bc-sf-filter-load-more .bc-sf-filter-load-more-button {
+        min-width: 120px;
+        padding: 15px 20px;
+        background-color: $black;
+        font-family: $book;
+        font-size: 10px;
+        text-align: center;
+        color: #fff;
+        text-transform: uppercase;
+        letter-spacing: 1.15px;
+        border-radius: 0;
+        border: none;
+        line-height: 1;
+        box-shadow: none;
+        cursor: pointer;
+        transition: .3s all;
+        -webkit-appearance: none;
+
+        &:hover {
+            box-shadow: inset 0 0 0 3px $black, inset 0 0 0 4px white;
+        }
+
+        @include breakpoint(extra-small) {
+            width: 100%;
+        }
+    }
+}

@@ -1,0 +1,28 @@
+.home-banner {
+    padding-top: 54.38%;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+
+    //opacity: 0;
+    //animation-name: bannerFadeIn;
+    //animation-duration: .5s;
+    //animation-delay: 2s;
+    //animation-fill-mode: forwards;
+
+    @include breakpoint(small-tablet-portrait) {
+        @media (orientation: portrait) {
+            padding-top: 140%;
+        }
+    }
+}
+
+@keyframes bannerFadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}

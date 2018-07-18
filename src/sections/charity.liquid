@@ -1,0 +1,54 @@
+<section class="charity-page">
+    <div class="container">
+        <h1 class="page-title">{{ page_title }}</h1>
+        <div class="page-description">
+            {{ page.content }}
+        </div>
+        {% if section.blocks != blank %}
+            <div class="charity row">
+                {% for block in section.blocks %}
+                    {% if block.settings.block_item-url != blank and block.settings.block_item-image %}
+                        <div class="col-lg-6 charity-item">
+                            <a href="{{ block.settings.block_item-url }}" target="_blank" style="background-image: url('{{ block.settings.block_item-image | img_url: 'master' }}')">
+                                {% if block.settings.block_item-text != blank %}
+                                    {{ block.settings.block_item-text }}
+                                {% else %}
+                                    {{ block.settings.block_item-url | remove: "http://" | remove: "https://" }}
+                                {% endif %}
+                            </a>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+</section>
+
+{% schema %}
+{
+    "name" : "Charity",
+    "blocks": [
+        {
+            "type" : "select",
+            "name" : "Charity item",
+            "settings" : [
+                {
+                    "type" : "image_picker",
+                    "id" : "block_item-image",
+                    "label" : "Image"
+                },
+                {
+                    "type" : "url",
+                    "id" : "block_item-url",
+                    "label" : "URL"
+                },
+                {
+                    "type" : "text",
+                    "id" : "block_item-text",
+                    "label" : "Link text (optional)"
+                }
+            ]
+        }
+    ]
+}
+{% endschema %}

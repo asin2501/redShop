@@ -1,0 +1,42 @@
+.error-page {
+  padding-top: 19px;
+  user-select: none;
+
+  .container {
+	position: relative;
+	padding-top: 66px;
+
+	img {
+	  -webkit-user-drag: none;
+	  margin-bottom: 55px;
+	}
+
+	&:before {
+	  content: '';
+	  position: absolute;
+	  top: 7px;
+	  left: 15px;
+	  width: calc(100% - 30px);
+	  height: 1px;
+	  background-color: $light_gray;
+	}
+  }
+
+  h2 {
+	margin-bottom: 29px;
+	font-family: $book-heavy;
+	letter-spacing: 1.6px;
+  }
+
+  p {
+	margin-bottom: 49px;
+	max-width: 450px;
+	letter-spacing: 1.1px;
+	line-height: 29px;
+	color: $black;
+  }
+
+  .button {
+	padding: 15px 39px;
+  }
+}

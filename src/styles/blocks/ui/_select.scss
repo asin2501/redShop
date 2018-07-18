@@ -1,0 +1,18 @@
+.select {
+    padding: 12px 65px;
+    text-align: center;
+    border: 1px solid $black;
+    text-transform: uppercase;
+    background-image: url(select.png);
+    background-repeat: no-repeat;
+    background-position: right 14px top 50%;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+
+    &.select--full-width {
+        width: 100%;
+        padding: 12px 15px;
+    }
+
+}

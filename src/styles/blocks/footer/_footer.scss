@@ -1,0 +1,127 @@
+.footer {
+    margin-top: 60px;
+    padding-bottom: 60px;
+
+    .row + .row {
+        margin-top: 55px;
+        @include breakpoint(extra-small) {
+            margin-top: 50px;
+        }
+    }
+
+    .links-list {
+        @include breakpoint(extra-small) {
+            padding-top: 28px;
+        }
+    }
+}
+
+.footer__container {
+    &::before {
+        content: "";
+        display: block;
+        max-width: 1170px;
+        margin: 0 auto;
+        padding-top: 57px;
+        border-top: 1px solid $dark_gray;
+    }
+}
+
+.footer__col {
+    @include breakpoint(small) {
+        margin-bottom: 60px;
+    }
+
+    @include breakpoint(extra-small) {
+        margin-bottom: 47px;
+    }
+}
+
+.footer__title {
+    display: flex;
+    align-items: center;
+    margin-bottom: 28px;
+
+    &.opened {
+        .footer__title-icon {
+            transform: rotate(180deg);
+        }
+    }
+
+    @include breakpoint(extra-small) {
+        display: inline-flex;
+        margin-bottom: 0;
+        cursor: pointer;
+    }
+}
+
+.footer__title-icon {
+    display: none;
+    width: 13px;
+    height: 13px;
+    margin-left: 5px;
+    text-align: center;
+    transition: .3s all;
+    svg {
+        fill: $black;
+    }
+    @include breakpoint(extra-small) {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+.footer__accordion {
+    @media (min-width: 768px) {
+        display: block!important;
+    }
+
+    @include breakpoint(extra-small) {
+        display: none;
+    }
+}
+
+.footer__copyright {
+    color: $black;
+    letter-spacing: 1.15px;
+    a {
+        color: $black;
+    }
+}
+
+.footer__socials {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -12px;
+
+    svg {
+        width: 15px;
+        height: 15px;
+        fill: #010101;
+    }
+
+    @include breakpoint(extra-small) {
+        margin: 0 -10px;
+        padding-bottom: 48px;
+        svg {
+            width: 19px;
+            height: 19px;
+        }
+    }
+}
+
+.footer__socials-item {
+    padding: 0 12px;
+    @include breakpoint(extra-small) {
+        padding: 0 10x;
+    }
+}
+
+.footer__socials-link {
+    transition: .3s all;
+    &:hover,
+    &:focus {
+        transform: translateY(-5px);
+    }
+}

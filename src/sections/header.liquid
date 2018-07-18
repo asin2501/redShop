@@ -1,0 +1,193 @@
+<header class="header" id="header">
+    <div class="main-container">
+        <a href="/" itemprop="url" class="header__logo">
+              {% if section.settings.logo != blank %}
+                    <img src="{{ section.settings.logo | img_url: image_size }}" itemprop="logo">
+              {% else %}
+                    <img src="{{ 'logo.png' | asset_img_url: 'master' }}" itemprop="logo">
+              {% endif %}
+        </a>
+        <nav class="header__left-menu" id="desktopmenu">
+            {% if section.settings.left_linklist %}
+                <ul class="header-menu header-menu--desktop">
+                    {% for link in linklists[section.settings.left_linklist].links %}
+                        {% if link.levels != 0 %}
+                            <li class="header-menu__item header-menu__item--has-children">
+                                <a href="#" class="header-menu__link">{{ link.title }} <span class="arrow header-menu__arrow"></span></a>
+                                    <ul class="header-menu header-menu--submenu">
+                                        {% for _link in link.links %}
+                                            {% if _link.levels != 0 %}
+                                                <li class="header-menu__item header-menu__item--has-children">
+                                                     <a class="header-menu__link" href="{{ _link.url }}">{{ _link.title }} <span class="arrow header-menu__arrow"></span></a>
+                                                            <ul class="header-menu header-menu--submenu">
+                                                                {% for __link in _link.links %}
+                                                                    <li class="header-menu__item">
+                                                                         <a class="header-menu__link" href="{{ __link.url }}">{{ __link.title }}{% if link.object.products_count %}<span class="menu-number">{{ link.object.products_count }}</span>{% endif %}</a>
+                                                                    </li>
+                                                                {% endfor %}
+                                                            </ul>
+                                                </li>
+                                            {% else %}
+                                                <li class="header-menu__item">
+                                                     <a class="header-menu__link" href="{{ _link.url }}">{{ _link.title }}
+                                                         {% if link.object.products_count %}<span class="menu-number">{{ link.object.products_count }}</span>{% endif %}</a>
+                                                 </li>
+                                             {% endif %}
+                                        {% endfor %}
+                                    </ul>
+                            </li>
+                        {% else %}
+                            <li class="header-menu__item">
+                                <a href="{{ link.url }}" class="header-menu__link">{{ link.title }} {% if link.object.products_count %}<span class="menu-number">{{ link.object.products_count }}</span>{% endif %}</a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </nav>
+        <div class="header__right-menu">
+            {% if section.settings.right_linklist %}
+                <ul class="header-menu header-menu--desktop header-menu--right">
+                    {% for link in linklists[section.settings.right_linklist].links %}
+                        <li class="header-menu__item">
+                            <a href="{{ link.url }}" class="header-menu__link">{{ link.title }}</a>
+                        </li>
+                    {% endfor %}
+                    <li class="header-menu__item">
+                        <a class="header-menu__link" href="/cart">Bag ({{ cart.item_count }})</a>
+                    </li>
+                </ul>
+            {% endif %} 
+        </div>
+    </div>
+</header>
+
+<div class="mobile-btn" id="mobile-btn">
+    <span class="mobile-btn__line"></span>
+    <span class="mobile-btn__line"></span>
+    <span class="mobile-btn__line"></span>
+</div>
+
+<a class="mobile-cart" href="/cart">
+        <img src="{{ 'cart.png' | asset_img_url:'master' }}" alt="" class="src">
+    {% if cart.item_count < 99 %}
+        <span class="mobile-cart__inner">{{ cart.item_count  }}</span>
+    {% else %}
+        <span class="mobile-cart__inner">99</span>
+    {% endif %}
+</a>
+
+<div class="mobile-menu" id="mobile-menu">
+    <div class="mobile-menu__content">
+        {% if section.settings.left_linklist %}
+            {% for link in linklists[section.settings.left_linklist].links %}
+                {% if link.levels != 0 %}
+                    <div class="mobile-sub-menu  mobile-sub-menu--level-1" id="{{ link.title | handle }}">
+                        <span class="mobile-sub-menu__back js-back"><span class="header-menu__arrow"></span> Back</span>
+                        <h6 class="mobile-sub-menu__title">{{ link.title }}</h6>
+                        <div class="mobile-sub-menu__scroll">
+                            <ul class="header-menu header-menu--mobile">
+                                {% for _link in link.links %}
+                                    {% if _link.levels != 0 %}
+                                        <li class="header-menu__item header-menu__item--has-children">
+                                            <a class="header-menu__link" href="#{{ _link.title | handle }}">{{ _link.title }} <span class="arrow header-menu__arrow"></span></a>
+                                        </li>
+                                    {% else %}
+                                        <li class="header-menu__item">
+                                            <a class="header-menu__link" href="{{ _link.url }}">{{ _link.title }} {% if link.object.products_count %}<span class="menu-number">{{ link.object.products_count }}</span>{% endif %}</a>
+                                        </li>
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+
+        <!-- start sub sub menu -->
+        {% if section.settings.left_linklist %}
+            {% for link in linklists[section.settings.left_linklist].links %}
+                {% if link.levels != 0 %}
+                    {% for _link in link.links %}
+                        {% if _link.levels != 0 %}
+                            <div class="mobile-sub-menu mobile-sub-menu--level-2" id="{{ _link.title | handle }}">
+                                <span class="mobile-sub-menu__back js-back"><span class="header-menu__arrow"></span> Back</span>
+                                <h6 class="mobile-sub-menu__title">{{ _link.title }}</h6>
+                                <div class="mobile-sub-menu__scroll">
+                                    <ul class="header-menu header-menu--mobile">
+                                        {% for __link in _link.links %}
+                                                <li class="header-menu__item">
+                                                    <a class="header-menu__link" href="{{ __link.url }}">{{ __link.title }} {% if link.object.products_count %}<span class="menu-number">{{ link.object.products_count }}</span>{% endif %}</a>
+                                                </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+        <!-- end sub sub menu -->
+
+        <div class="mobile-menu__scroll">
+            {% if section.settings.left_linklist %}
+                <ul class="header-menu header-menu--mobile">
+                    {% for link in linklists[section.settings.left_linklist].links %}
+                        {% if link.levels != 0 %}
+                            <li class="header-menu__item header-menu__item--has-children">
+                                <a href="#{{ link.title | handle }}" class="header-menu__link">{{ link.title }} <span class="arrow header-menu__arrow"></span></a>
+                            </li>
+                        {% else %}
+                            <li class="header-menu__item">
+                                <a href="{{ link.url }}" class="header-menu__link">{{ link.title }} {% if link.object.products_count %}<span class="menu-number">{{ link.object.products_count }}</span>{% endif %}</a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
+            {% if section.settings.right_linklist %}
+                <ul class="header-menu header-menu--mobile">
+                    {% for link in linklists[section.settings.right_linklist].links %}
+                        {% if link.levels != 0 %}
+                            <li class="header-menu__item header-menu__item--has-children">
+                                <a href="#{{ link.title | handle }}" class="header-menu__link">{{ link.title }} <span class="arrow header-menu__arrow"></span></a>
+                            </li>
+                        {% else %}
+                            <li class="header-menu__item">
+                                <a href="{{ link.url }}" class="header-menu__link">{{ link.title }}</a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+    </div>
+    <div class="mobile-menu__footer">
+        <a href="/cart" class="button">Checkout ({{ cart.item_count }} items)</a>
+    </div>
+</div>
+{% schema %}
+  {
+    "name": "Header",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Logo image"
+      },
+      {
+        "type": "link_list",
+        "id": "left_linklist",
+        "label": "Left Menu"
+      },
+      {
+        "type": "link_list",
+        "id": "right_linklist",
+        "label": "Right Menu"
+      }
+    ]
+  }
+{% endschema %}

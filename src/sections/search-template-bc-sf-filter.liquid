@@ -1,0 +1,59 @@
+{% assign products_per_page = 25%}
+
+<div class="bc-sf-search-container">
+            <h4 class="search-title bc-sf-search-result-header"></h4>
+            <form class="bc-sf-search-form" action="/search" method="get" role="search">
+              <input class="bc-sf-search-box" type="search" name="q" value="{{ search.terms | escape }}">
+              <button type="submit" class="bc-sf-search-btn"></button>
+            </form>
+            <p class="bc-sf-search-result-number"></p>
+          </div>
+    <div class="search-page-results__count"><span id="search-results-count"></span> <span id="search-results-count_prod"></span> found </div>
+<div class="row">
+        <div style="display: none !important;" id="bc-sf-filter-tree" class="col-auto collection__filter collection-filters">
+        </div>
+        <div class="col">
+          <div id="bc-sf-filter-default-toolbar" class="collection__toolbar toolbar">
+              <div id="bc-sf-filter-tree-mobile"></div>
+              <div id="bc-sf-filter-top-show-limit"></div>
+          </div>
+              <div id="bc-sf-filter-products" class="row" data-bc-sort="{{ collection.default_sort_by }}">
+                {% if collection.default_sort_by != 'best-selling' %}
+                  {% for product in collection.products %}
+                    {% include 'bc-sf-filter-product-item', product: product %}
+                  {% endfor %}
+                {% endif %}
+              </div>
+
+              <div id="bc-sf-filter-bottom-pagination" class="bc-sf-filter-bottom-pagination-default"></div>
+              <div id="bc-sf-filter-load-more"></div>
+          </div>
+      </div>
+
+
+<script>
+  // Declare bcSfFilterConfig variable
+  var bcSfFilterConfig = {
+    label: {
+      sorting: {% assign temp = 'collections.sorting.title' | t  %} {% unless temp contains 'translation missing'  %} "{{ temp }}" {% else %} "Sorting" {% endunless %},
+      sorting_best_selling: {% assign temp = 'collections.sorting.best_selling' | t %} {% unless temp contains 'translation missing'  %} "{{ temp }}" {% else %} "Best Selling" {% endunless %},
+      sorting_featured: {% assign temp = 'collections.sorting.featured' | t %} {% unless temp contains 'translation missing'  %} "{{ temp }}" {% else %} "Featured" {% endunless %},
+      sorting_title_ascending: {% assign temp = 'collections.sorting.az' | t %} {% unless temp contains 'translation missing'  %} "{{ temp }}" {% else %} "Alphabetically, A-Z" {% endunless %},
+      sorting_title_descending: {% assign temp = 'collections.sorting.za' | t %} {% unless temp contains 'translation missing'  %} "{{ temp }}" {% else %} "Alphabetically, Z-A" {% endunless %},
+      sorting_price_ascending: {% assign temp = 'collections.sorting.price_ascending' | t %} {% unless temp contains 'translation missing'  %} "{{ temp }}" {% else %} "Lowest Price" {% endunless %},
+      sorting_price_descending: {% assign temp = 'collections.sorting.price_descending' | t %} {% unless temp contains 'translation missing'  %} "{{ temp }}" {% else %} "Highest Price" {% endunless %},
+      sorting_date_ascending: {% assign temp = 'collections.sorting.date_ascending' | t %} {% unless temp contains 'translation missing'  %} "{{ temp }}" {% else %} "Date, Old to New" {% endunless %},
+      sorting_date_descending: {% assign temp = 'collections.sorting.date_descending' | t %} {% unless temp contains 'translation missing'  %} "{{ temp }}" {% else %} "Date, New to Old" {% endunless %},
+      sorting_sale_descending: {% assign temp = 'collections.sorting.sale_descending' | t %} {% unless temp contains 'translation missing'  %} "{{ temp }}" {% else %} "% Off" {% endunless %},
+      sorting_relevance: {% assign temp = 'collections.sorting.relevance' | t %} {% unless temp contains 'translation missing'  %} "{{ temp }}" {% else %} "Relevance" {% endunless %}
+    },
+    label_basic: {
+      sale: "Sale",
+      sold_out: "Sold out",
+      from: "from",
+    },
+    custom: {
+      products_per_page: {% if products_per_page %} {{ products_per_page | json }} {% else %} 20 {% endif %},
+    }
+  };
+</script>

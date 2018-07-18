@@ -1,0 +1,38 @@
+.charity-item {
+  height: 500px;
+  padding: 15px;
+
+  @media (max-width: 1550px) {
+	height: 400px;
+  }
+
+  @media (max-width: 991px) {
+	height: 500px;
+  }
+
+  @media (max-width: 420px) {
+	height: 400px;
+  }
+
+  a {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 100%;
+	padding: 15px;
+	background-repeat: no-repeat;
+	background-position: 50% 50%;
+	background-size: cover;
+	filter: grayscale(100%);
+	font-family: $book-heavy;
+	font-size: 11px;
+	letter-spacing: 1px;
+	color: #fff;
+	transition: filter 0.2s linear;
+
+	&:hover {
+	  filter: grayscale(0%);
+	}
+  }
+}

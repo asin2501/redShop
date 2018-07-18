@@ -1,0 +1,54 @@
+<div class="main-container">
+    <section class="home-text">
+        <div class="container">
+            <h2 class="home-text__title">{{ section.settings.title }}</h2>
+            {% if section.settings.text %}
+            <div class="home-text__description">
+                {{ section.settings.text }}
+            </div>
+            {% endif %}
+
+            {% if section.settings.button_url != blank and section.settings.button_text != blank %}
+                <a href="{{ section.settings.button_url }}" class="button">{{ section.settings.button_text }}</a>
+            {% endif %}
+        </div>
+
+    </section>
+</div>
+
+
+{% schema %}
+  {
+    "name": "Page info",
+    "settings": [
+        {
+            "type": "text",
+            "id": "title",
+            "label": "Title",
+            "default": "Our value"
+        },
+        {
+            "type": "richtext",
+            "id": "text",
+            "label": "Text description"
+        },
+        {
+            "type": "text",
+            "id": "button_text",
+            "label": "Button text",
+            "default": "More"
+        },
+        {
+            "type": "url",
+            "id": "button_url",
+            "label": "Button url"
+        }
+    ],
+    "presets": [
+      {
+        "name": "Page info",
+        "category": "Content"
+      }
+    ]
+  }
+{% endschema %}

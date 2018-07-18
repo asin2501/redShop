@@ -1,0 +1,98 @@
+.login-page {
+  padding-top: 7px;
+
+  .container {
+	@media (max-width: 1550px) {
+	  max-width: 860px;
+	}
+
+	@media (max-width: 1199px) {
+	  max-width: 960px;
+	}
+  }
+
+  .button {
+	&:hover {
+	  background-color: $black;
+	  box-shadow: inset 0 0 0 3px $black, inset 0 0 0 4px #fff;
+	}
+  }
+
+  .login-page__login-form {
+	@include breakpoint(extra-small) {
+	  margin-bottom: 60px;
+	}
+  }
+
+  .page-title {
+	margin-bottom: 65px;
+  }
+
+  .login-form {
+	display: flex;
+	flex-direction: column;
+
+	.button {
+	  padding: 15px 66px;
+	}
+  }
+
+  .errors {
+	max-width: 370px;
+	letter-spacing: 1.1px;
+	margin-bottom: 30px;
+	line-height: 19px;
+  }
+
+  .login-page__reg-form {
+
+	.button {
+	  padding: 15px 58px;
+	}
+  }
+
+  .login-page__sect-title {
+	margin-bottom: 35px;
+	letter-spacing: 1.5px;
+  }
+
+  .form-group {
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 10px;
+  }
+
+  .form-group__sub {
+	display: flex;
+	justify-content: space-between;
+	letter-spacing: 1px;
+  }
+
+  label {
+	margin-bottom: 7px;
+	font-family: $book-heavy;
+	color: #000;
+	letter-spacing: 1px;
+  }
+
+  .form-group--block {
+	margin-top: 19px;
+  }
+
+  .login-page__reg-text {
+	letter-spacing: 1px;
+	color: #000;
+
+	ul {
+	  margin-top: 18px;
+	  margin-bottom: 46px;
+
+	  li {
+		list-style: disc;
+		margin-left: 22px;
+		margin-bottom: 18px;
+		letter-spacing: 1.1px;
+	  }
+	}
+  }
+}

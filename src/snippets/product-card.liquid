@@ -1,0 +1,7 @@
+<div class="product-card">
+    <div class="product-card__image" style="background-image: url({{ product.featured_image | img_url: "master" }});">
+        <a class="product-card__image-link" href="{{ product.url | within: collection }}"></a>
+    </div>
+    <h3 class="product-card__title"><a href="{{ product.url | within: collection }}">{{ product.title }}</a></h3>
+    <div class="product-card__price">{{ product.price | money }}</div>
+</div>

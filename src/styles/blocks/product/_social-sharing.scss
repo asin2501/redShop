@@ -1,0 +1,23 @@
+.social-sharing {
+    display: inline-flex;
+    align-items: center;
+    flex-wrap: wrap;
+    padding-top: 6px;
+    svg {
+        width: 16px;
+        fill: $black;
+        path {
+            fill: $black;
+        }
+    }
+}
+
+.social-sharing__link {
+    margin-right: 15px;
+}
+
+.social-sharing__link--google {
+    svg {
+        width: 19px;
+    }
+}

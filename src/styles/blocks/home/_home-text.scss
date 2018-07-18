@@ -1,0 +1,39 @@
+.home-text {
+    max-width: 800px;
+    margin: 0 auto;
+    padding-top: 45px;
+    text-align: center;
+
+    @include breakpoint(extra-small) {
+        padding-top: 55px;
+
+        .button {
+            width: 100%;
+        }
+    }
+}
+
+.home-text__title {
+    margin-bottom: 20px;
+
+    @include breakpoint(extra-small) {
+        margin-bottom: 17px;
+    }
+}
+
+.home-text__description {
+    line-height: 2.3;
+    letter-spacing: 1.1px;
+
+    + * {
+        margin-top: 25px;
+    }
+
+    @include breakpoint(extra-small) {
+        line-height: 2.5;
+
+        + * {
+            margin-top: 22px;
+        }
+    }
+}

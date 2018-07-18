@@ -1,0 +1,120 @@
+<section class="login-page" id="login-page">
+  <div class="container">
+    <h1 class="page-title">{{ 'customer.account.title' | t }}</h1>
+
+    <div class="row">
+      <div class="col-lg-4 col-md-6 login-page__login-form">
+        <div v-if="loginShown == true" id="CustomerLoginForm">
+            {% form 'customer_login' %}
+          <h2 class="login-page__sect-title">{{ 'customer.login.title' | t }}</h2>
+
+          <div class="login-form">
+              {% if form.errors != blank %}
+                  <div class="errors">
+                    Please check that you typed your email and password correctly and that you are in the same country you registered in.
+                  </div>
+              {% endif %}
+
+            <div class="form-group">
+              <label for="CustomerEmail" class="label-hidden">
+                  {{ 'customer.login.email' | t }}
+              </label>
+              <input type="email"
+                     name="customer[email]"
+                     id="CustomerEmail"
+                     class="input {% if form.errors contains 'email' %}input-error{% endif %}"
+                     spellcheck="false"
+                     autocomplete="off"
+                     autocapitalize="off"
+                     autofocus>
+            </div>
+
+            <div class="form-group">
+                {% if form.password_needed %}
+                  <div class="form-group__sub">
+                    <label for="CustomerPassword" class="label-hidden">
+                        {{ 'customer.login.password' | t }}
+                    </label>
+                      {% if form.password_needed %}
+                        <a href="#recover" @click.prevent="changeView" id="RecoverPassword">{{ 'customer.login.forgot_password' | t }}</a>
+                      {% endif %}
+                  </div>
+
+                  <input type="password"
+                         name="customer[password]"
+                         id="CustomerPassword"
+                         class="input {% if form.errors contains 'password' %}input-error{% endif %}">
+                {% endif %}
+            </div>
+
+            <div class="form-group--block">
+              <input type="submit" class="button" value="{{ 'customer.login.sign_in' | t }}">
+            </div>
+          </div>
+
+            {% endform %}
+        </div>
+        <div v-if="forgottPassShown" id="RecoverPasswordForm">
+          <h2 class="login-page__sect-title">{{ 'customer.recover_password.title' | t }}</h2>
+
+          <p>{{ 'customer.recover_password.subtext' | t }}</p>
+
+          <div class="form-success hide" id="ResetSuccess">
+              {{ 'customer.recover_password.success' | t }}
+          </div>
+
+            {% form 'recover_customer_password' %}
+            {{ form.errors | default_errors }}
+
+            {% if form.posted_successfully? %}
+              <span class="hide reset-password-success"></span>
+            {% endif %}
+          <div class="form-group">
+            <label for="RecoverEmail" class="label-hidden">
+                {{ 'customer.recover_password.email' | t }}
+            </label>
+            <input type="email"
+                   name="email"
+                   id="RecoverEmail"
+                   class="input"
+                   placeholder="{{ 'customer.recover_password.email' | t }}"
+                   spellcheck="false"
+                   autocomplete="off"
+                   autocapitalize="off">
+          </div>
+
+          <div class="form-group">
+            <div class="form-group__sub">
+              <input type="submit" class="button" value="{{ 'customer.recover_password.submit' | t }}">
+              <button class="button" @click.prevent="changeView" type="button" id="HideRecoverPasswordLink">
+                  {{ 'customer.recover_password.cancel' | t }}
+              </button>
+            </div>
+          </div>
+            {% endform %}
+        </div>
+
+      </div>
+      <div class="offset-lg-2 offset-md-0 col-lg-6 col-md-6 login-page__reg-form">
+        <h2 class="login-page__sect-title">Register</h2>
+        <div class="login-page__reg-text">
+            {% if shop.metafields.sf_global.login_register_text != blank %}
+                {{ shop.metafields.sf_global.login_register_text }}
+            {% endif %}
+        </div>
+        <a class="button" href="/account/register">
+            {{ 'layout.customer.create_account' | t }}
+        </a>
+      </div>
+    </div>
+
+      {% if shop.checkout.guest_login %}
+        <h2>{{ 'customer.login.guest_title' | t }}</h2>
+
+          {% form 'guest_login' %}
+        <input type="submit" class="btn" value="{{ 'customer.login.guest_continue' | t }}">
+          {% endform %}
+      {% endif %}
+
+  </div>
+</section>

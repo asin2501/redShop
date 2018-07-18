@@ -1,0 +1,120 @@
+.event-item {
+  position: relative;
+  max-width: 470px;
+  padding-bottom: 73px;
+  text-align: center;
+  margin: 0 auto;
+
+  .event-item__head {
+	margin-bottom: 9px;
+	color: $black;
+	letter-spacing: 1px;
+
+	span {
+	  margin: 0px 8px;
+	}
+  }
+
+  .button {
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+
+	&:hover {
+	  background-color: $black;
+	  box-shadow: inset 0 0 0 3px $black, inset 0 0 0 4px #fff;
+	}
+
+	@include breakpoint(small) {
+	  position: relative;
+	  left: auto;
+	  transform: none;
+	}
+  }
+
+  .event-item__description {
+	letter-spacing: 1px;
+	line-height: 2.5;
+	max-width: 870px;
+	word-spacing: 1px;
+
+	@include breakpoint(small) {
+	  margin-bottom: 25px;
+	}
+  }
+
+  h3 {
+	margin-bottom: 18px;
+	font-family: $book-heavy;
+	letter-spacing: 0;
+  }
+
+  @include breakpoint(small) {
+	margin-bottom: 30px;
+  }
+}
+
+.event-item--upcoming {
+
+  h3 {
+	font-size: 20px;
+  }
+
+  .button {
+	bottom: 10px;
+
+	@include breakpoint(small) {
+	  bottom: auto;
+	}
+  }
+
+  @include breakpoint(small) {
+
+	&:last-child {
+	 // margin-bottom: 0;
+	  padding-bottom: 0;
+	}
+  }
+}
+
+.event-item--past {
+  padding-bottom: 54px;
+
+  h3 {
+	font-size: 11px;
+	letter-spacing: 1px;
+  }
+
+  .button-arrow {
+	display: block;
+	width: 30px;
+	height: 9px;
+	margin: 0 auto;
+	margin-top: 10px;
+	font-size: 0;
+	background-image: url(more.png);
+	background-repeat: no-repeat;
+	background-size: contain;
+  }
+
+  @include breakpoint(small) {
+	padding-bottom: 0;
+	margin-bottom: 35px;
+
+	&:last-child {
+	  //margin-bottom: 0;
+	}
+  }
+}
+
+.js-past-events {
+  .js-event-item {
+	@include breakpoint(small) {
+	  &:last-child {
+		.event-item--past {
+		  margin-bottom: 0;
+		}
+	  }
+	}
+  }
+}

@@ -1,0 +1,48 @@
+<div class="main-container">
+    <div class="container">
+        <h1 class="page-title page-title--mb-65">{{ page.title }}</h1>
+
+        <div class="text-page">
+            <div class="row">
+                <div class="col-md-3 text-page__menu">
+                    <ul class="links-list">
+                        {% for block in section.blocks %}
+                            <li class="links-list__item"><a href="#{{ pages[block.settings.page].handle }}" class="js-tab-link links-list__link {% if forloop.index == 1 %}active{% endif %}">{{ pages[block.settings.page].title }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <div class="col-md-9 tab-container">
+                    {% for block in section.blocks %}
+                    <div id="{{ pages[block.settings.page].handle }}" class="js-tab tab {% if forloop.index == 1 %}active{% endif %}">
+                        {{ pages[block.settings.page].content }}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Legal",
+    "settings": [
+
+    ],
+    "blocks": [
+        {
+            "type": "pages",
+            "name": "Page",
+            "settings": [
+                {
+                    "type": "page",
+                    "id": "page",
+                    "label": "Page for content"
+                }
+            ]
+        }
+    ]
+  }
+{% endschema %}

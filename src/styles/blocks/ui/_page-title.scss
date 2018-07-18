@@ -1,0 +1,38 @@
+.page-title {
+    display: flex;
+    align-items: center;
+    &::after {
+        content: "";
+        display: block;
+        flex-grow: 1;
+        height: 1px;
+        margin-left: 30px;
+        background-color: $light_gray;
+
+        @include breakpoint(extra-small) {
+            margin-right: 10px;
+        }
+    }
+
+    &.page-title--mb-65 {
+        margin-bottom: 65px;
+    }
+
+    .page-title__link {
+        display: inline-flex;
+        align-items: center;
+        letter-spacing: 1.15px;
+        &::before {
+            content:"";
+            display: inline-block;
+            vertical-align: middle;
+            width: 8px;
+            height: 8px;
+            margin-right: 5px;
+            background-image: url('select.png');
+            transform: rotate(90deg);
+            background-repeat: no-repeat;
+            background-position: 50% 50%;
+        }
+    }
+}
